@@ -1,4 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+#key
+smg-blog-bff6c-firebase-adminsdk-encbv-7530169018.json
 
 # dependencies
 /node_modules

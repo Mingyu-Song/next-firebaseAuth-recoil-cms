@@ -1,53 +1,30 @@
-import Box from "components/box/Box";
-import Text from "components/text/Text";
-import { useState } from "react";
-import { useEffect } from "react";
-import styled from "styled-components";
-import { sizes } from "styles/theme";
-const Nav = () => {
-  const [status, setStatus] = useState("top");
-  useEffect(() => {
-    const scrollHandler = (e) => {
-      const scrolled = document.scrollingElement.scrollTop;
-      if (scrolled >= 100) {
-        if (status !== "down") {
-          setStatus("down");
-        }
-      } else {
-        if (status !== "top") {
-          setStatus("top");
-        }
-      }
-    };
-    document.addEventListener("scroll", scrollHandler);
-    return () => {
-      document.removeEventListener("scroll", scrollHandler);
-    };
-  }, [status]);
+import Box from 'components/box/Box';
+import ModalRoot from 'components/modal/ModalRoot.tsx';
+import Text from 'components/text/Text';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import styled from 'styled-components';
+import { sizes } from 'lib/styles/theme';
 
+const Nav = () => {
+  const [modal, setModal] = useState(false);
+
+  const router = useRouter();
   return (
     <NavBox
       as="nav"
       display="flex"
       position="fixed"
-      zIndex="10"
+      zIndex="0"
       width="100%"
       top={0}
       left={0}
-      justifyContent="center"
-      backgroundColor={status === "top" ? "transparent" : "black"}
     >
-      <Box px="3" py="2" width={[1]} maxWidth={[`${sizes.desktop}px`]}>
-        <Heading
-          as="h1"
-          fontSize={status === "top" ? [4, 4, 5] : [3, 3, 4]}
-          lineHeight={status === "top" ? 1.5 : 1.3}
-          color={status === "top" ? "black" : "white"}
-          fontFamily="FugazOne"
-        >
-          ROLLIE
-        </Heading>
-      </Box>
+      {modal && <ModalRoot onClose={() => setModal(false)} />}
+      <Heading as="h1" onClick={() => setModal(true)}>
+        로그인/회원가입
+      </Heading>
     </NavBox>
   );
 };

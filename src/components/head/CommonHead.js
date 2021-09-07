@@ -1,5 +1,5 @@
-import Head from "next/head";
-import fontFace from "styles/fontFace";
+import Head from 'next/head';
+import fontFace from 'lib/styles/fontFace';
 
 const CommonHead = ({ children }) => {
   return (
