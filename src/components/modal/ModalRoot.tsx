@@ -1,21 +1,25 @@
+import { useModalValue } from 'atoms/modalState';
 import RootPortal from 'components/portal';
 import zIndexes from 'lib/styles/zIndexes';
 import React from 'react';
 import styled from 'styled-components';
-import ModalLogin from './ModalLogin';
+import dynamic from 'next/dynamic';
 
-export type ModalRootProps = {
-  children: React.ReactNode;
+export const Modals = {
+  modalLogin: dynamic(() => import('./ModalLogin')),
+  modalExample: dynamic(() => import('./ModalExample')),
 };
 
-export default function ModalRoot({ children, onClose }: ModalRootProps) {
+export default function ModalRoot({ onClose }) {
+  const { Component, visible, ...restProps } = useModalValue();
+
+  if (!visible) return null;
   return (
     <RootPortal>
       <ModalRootBox>
         <Background />
         <ModalWrapper>
-          <div onClick={onClose}>x</div>
-          <ModalLogin /> {/* children으로 */}
+          <Component {...restProps} />
         </ModalWrapper>
       </ModalRootBox>
     </RootPortal>

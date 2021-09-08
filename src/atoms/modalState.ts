@@ -3,12 +3,14 @@ import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const defaultModalState = {
   visible: false,
+  Component: () => null,
   title: '',
   message: '',
   confirmText: 'OK',
   cancelText: 'CANCEL',
   onConfirm() {},
-  onCancel: undefined,
+  onClose: undefined,
+  props: {},
 };
 
 const modalState = atom({
@@ -20,13 +22,15 @@ export function useModalValue() {
   return useRecoilValue(modalState);
 }
 
-export function useGlobalDialogActions() {
+export function useModalActions() {
   const set = useSetRecoilState(modalState);
   return useMemo(
     () => ({
-      open() {
+      open(Component, props) {
         set({
           ...defaultModalState,
+          ...props,
+          Component,
           visible: true,
         });
       },

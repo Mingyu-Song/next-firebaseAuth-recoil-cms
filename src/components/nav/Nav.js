@@ -1,16 +1,12 @@
 import Box from 'components/box/Box';
-import ModalRoot from 'components/modal/ModalRoot.tsx';
 import Text from 'components/text/Text';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import { sizes } from 'lib/styles/theme';
+import { useModalActions } from 'atoms/modalState';
+import { Modals } from 'components/modal/ModalRoot';
 
-const Nav = () => {
-  const [modal, setModal] = useState(false);
+function Nav() {
+  const { open } = useModalActions();
 
-  const router = useRouter();
   return (
     <NavBox
       as="nav"
@@ -21,13 +17,17 @@ const Nav = () => {
       top={0}
       left={0}
     >
-      {modal && <ModalRoot onClose={() => setModal(false)} />}
-      <Heading as="h1" onClick={() => setModal(true)}>
+      <Heading
+        as="h1"
+        onClick={() =>
+          open(Modals.modalLogin, { onClose: () => console.log('hi') })
+        }
+      >
         로그인/회원가입
       </Heading>
     </NavBox>
   );
-};
+}
 
 export default Nav;
 
