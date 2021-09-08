@@ -1,7 +1,7 @@
-import { setAuthHeader, unsetAuthHeader } from "api/axios";
-import { useState, useEffect } from "react";
-import { createUser } from "./db";
-import firebase from "./firebase";
+import { setAuthHeader, unsetAuthHeader } from 'api/axios';
+import { useState, useEffect } from 'react';
+import { createUser } from './db';
+import firebase, { auth, googleAuthProvider } from './firebase';
 
 const formatAuthUser = (user) => {
   const { uid, displayName, email, photoURL, providerData } = user;
@@ -46,6 +46,7 @@ export default function useFirebaseAuth() {
     setLoading(true);
   };
 
+  const signWithGoogle = () => auth.signInWithRedirect(googleAuthProvider);
   const signInWithEmailAndPassword = async (email, password) => {
     try {
       const { user } = await firebase
@@ -75,6 +76,7 @@ export default function useFirebaseAuth() {
   return {
     authUser,
     loading,
+    signWithGoogle,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
