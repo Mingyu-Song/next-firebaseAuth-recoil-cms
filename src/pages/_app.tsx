@@ -16,6 +16,7 @@ import ModalRoot from 'components/modal/ModalRoot';
 
 function MyApp({ Component, pageProps }) {
   config({ ssrFadeout: true });
+  console.log(theme);
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
