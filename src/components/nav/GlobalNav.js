@@ -8,7 +8,8 @@ import zIndexes from 'lib/styles/zIndexes';
 
 function GlobalNav() {
   const { open } = useModalActions();
-  const { signOut } = useAuth();
+  const { signOut, ...rest } = useAuth();
+  console.log(rest);
 
   return (
     <NavBox
@@ -33,7 +34,7 @@ function GlobalNav() {
             open(Modals.modalLogin, { onClose: () => console.log('hi') })
           }
         >
-          로그인/회원가입
+          SMG.LOG
         </Heading>
         <div onClick={() => signOut()}>로그아웃</div>
       </Nav>

@@ -1,5 +1,6 @@
 import { AuthUserProvider } from '../context/AuthUserContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
 import { ParallaxProvider } from 'react-scroll-parallax';
@@ -9,28 +10,28 @@ import theme from 'lib/styles/theme';
 import CommonHead from 'components/head/CommonHead';
 import GlobalStyle from 'lib/styles/globalStyles';
 
-const queryClient = new QueryClient();
-
-import config from 'react-reveal/globals';
 import ModalRoot from 'components/modal/ModalRoot';
+import { useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
-  config({ ssrFadeout: true });
-  console.log(theme);
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <AuthUserProvider>
-          <ThemeProvider theme={theme}>
-            <ParallaxProvider>
-              <CommonHead />
-              <GlobalStyle />
-              <Component {...pageProps} />
-              <ModalRoot />
-            </ParallaxProvider>
-          </ThemeProvider>
-        </AuthUserProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <Hydrate state={pageProps.dehydratedState}>
+          <AuthUserProvider>
+            <ThemeProvider theme={theme}>
+              <ParallaxProvider>
+                <CommonHead />
+                <GlobalStyle />
+                <Component {...pageProps} />
+                <ModalRoot />
+              </ParallaxProvider>
+            </ThemeProvider>
+          </AuthUserProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
       </QueryClientProvider>
     </RecoilRoot>
   );
