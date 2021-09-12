@@ -1,4 +1,4 @@
-const { default: styled } = require("styled-components");
+import styled from 'styled-components';
 import {
   color,
   space,
@@ -7,10 +7,10 @@ import {
   position,
   textShadow,
   style,
-} from "styled-system";
+} from 'styled-system';
 
 export const whiteSpace = style({
-  prop: "whiteSpace",
+  prop: 'whiteSpace',
 });
 
 const Text = styled.div`

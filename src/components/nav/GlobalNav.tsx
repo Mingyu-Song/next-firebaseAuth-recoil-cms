@@ -6,14 +6,14 @@ import { Modals } from 'components/modal/ModalRoot';
 import { useAuth } from 'context/AuthUserContext';
 import zIndexes from 'lib/styles/zIndexes';
 
-function GlobalNav() {
+export default function GlobalNav() {
   const { open } = useModalActions();
-  const { signOut, ...rest } = useAuth();
-  console.log(rest);
+  const { signOut, authUser, loading } = useAuth();
+
+  const { photoURL } = authUser || {};
 
   return (
     <NavBox
-      as="div"
       width={1}
       position="fixed"
       zIndex={zIndexes.NavBar}
@@ -28,21 +28,27 @@ function GlobalNav() {
         display="flex"
         justifyContent="space-between"
       >
-        <Heading
-          as="h1"
-          onClick={() =>
-            open(Modals.modalLogin, { onClose: () => console.log('hi') })
-          }
-        >
-          SMG.LOG
-        </Heading>
-        <div onClick={() => signOut()}>로그아웃</div>
+        <Heading as="h1">SMG.LOG</Heading>
+        {authUser && (
+          <>
+            <img src={photoURL} />
+            <div onClick={() => signOut()}>로그아웃</div>
+          </>
+        )}
+        {loading && <>...loading</>} {/* make skeleton here */}
+        {!authUser && (
+          <div
+            onClick={() =>
+              open(Modals.modalLogin, { onClose: () => console.log('hi') })
+            }
+          >
+            로그인/회원가입
+          </div>
+        )}
       </Nav>
     </NavBox>
   );
 }
-
-export default GlobalNav;
 
 const Heading = Text;
 

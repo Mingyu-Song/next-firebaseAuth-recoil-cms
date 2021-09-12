@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import fontFace from 'lib/styles/fontFace';
 
-const CommonHead = ({ children }) => {
+export default function CommonHead({ children }) {
   return (
     <Head>
       <title>Rollie</title>
@@ -29,6 +29,4 @@ const CommonHead = ({ children }) => {
       {children}
     </Head>
   );
-};
-
-export default CommonHead;
+}

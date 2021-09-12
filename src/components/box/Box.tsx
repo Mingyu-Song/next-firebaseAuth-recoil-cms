@@ -1,4 +1,4 @@
-const { default: styled } = require("styled-components");
+import styled from 'styled-components';
 import {
   color,
   space,
@@ -8,7 +8,7 @@ import {
   flexbox,
   shadow,
   border,
-} from "styled-system";
+} from 'styled-system';
 
 const Box = styled.div`
   ${color}

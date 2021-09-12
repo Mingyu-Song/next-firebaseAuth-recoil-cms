@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "context/AuthUserContext";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from 'context/AuthUserContext';
 
 import {
   Container,
@@ -12,12 +12,12 @@ import {
   Label,
   Input,
   Alert,
-} from "reactstrap";
+} from 'reactstrap';
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [passwordOne, setPasswordOne] = useState("");
-  const [passwordTwo, setPasswordTwo] = useState("");
+  const [email, setEmail] = useState('');
+  const [passwordOne, setPasswordOne] = useState('');
+  const [passwordTwo, setPasswordTwo] = useState('');
   const router = useRouter();
   const [error, setError] = useState(null);
 
@@ -30,14 +30,14 @@ const SignUp = () => {
     if (passwordOne === passwordTwo)
       createUserWithEmailAndPassword(email, passwordOne)
         .then((authUser) => {
-          console.log("Success. The user is created in Firebase");
-          router.push("/private");
+          console.log('Success. The user is created in Firebase');
+          router.push('/private');
         })
         .catch((error) => {
           // An error occurred. Set error message to be displayed to user
           setError(error.message);
         });
-    else setError("Password do not match");
+    else setError('Password do not match');
     event.preventDefault();
   };
 
@@ -104,4 +104,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default <></>;

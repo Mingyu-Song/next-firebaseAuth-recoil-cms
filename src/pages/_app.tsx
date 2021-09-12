@@ -2,7 +2,7 @@ import { AuthUserProvider } from '../context/AuthUserContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { RecoilRoot } from 'recoil';
 
@@ -12,6 +12,7 @@ import GlobalStyle from 'lib/styles/globalStyles';
 
 import ModalRoot from 'components/modal/ModalRoot';
 import { useState } from 'react';
+import Box from 'components/box/Box';
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -38,3 +39,5 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+const H1 = styled(Box)``;

@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "context/AuthUserContext";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from 'context/AuthUserContext';
 
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col, Button } from 'reactstrap';
 
 const LoggedIn = () => {
   const { authUser, loading, signOut } = useAuth();
@@ -10,7 +10,7 @@ const LoggedIn = () => {
 
   // Listen for changes on loading and authUser, redirect if needed
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
+    if (!loading && !authUser) router.push('/');
   }, [authUser, loading]);
 
   return (
@@ -39,4 +39,4 @@ const LoggedIn = () => {
   );
 };
 
-export default LoggedIn;
+export default <></>;

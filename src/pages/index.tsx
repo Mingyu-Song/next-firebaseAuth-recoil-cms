@@ -7,8 +7,7 @@ export default function Home() {
 
   return (
     <>
-      {/* <GlobalNav /> */}
-      <Hi>asda</Hi>
+      <GlobalNav />
       <br />
       <br />
       {JSON.stringify(authUser)}
