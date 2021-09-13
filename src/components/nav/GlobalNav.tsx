@@ -15,13 +15,17 @@ export default function GlobalNav() {
   return (
     <NavBox
       width={1}
-      position="fixed"
+      display="flex"
+      justifyContent="center"
+      position="relative"
       zIndex={zIndexes.NavBar}
       top={0}
       left={0}
+      pb={'100px'}
     >
       <Nav
         as="nav"
+        position="fixed"
         width={[1, 1, 1, '1024px']}
         px={3}
         mx="auto"

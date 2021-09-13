@@ -1,9 +1,10 @@
 import GlobalNav from 'components/nav/GlobalNav';
 import { useAuth } from 'context/AuthUserContext';
-import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const { authUser } = useAuth();
+  const router = useRouter();
 
   return (
     <>
@@ -11,7 +12,13 @@ export default function Home() {
       <br />
       <br />
       {JSON.stringify(authUser)}
+      <h5>추가할 것</h5>
+      <ul>
+        <li>post list page</li>
+        <li>post page</li>
+        <li onClick={() => router.push('write')}>write page</li>
+        <li>my information page</li>
+      </ul>
     </>
   );
 }
-const Hi = styled.div``;
