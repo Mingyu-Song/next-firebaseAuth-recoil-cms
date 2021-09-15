@@ -11,15 +11,21 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 
-export default function TuiEditor() {
+import { forwardRef } from 'react';
+
+export default forwardRef(function TuiEditor({ editorRef }) {
+  forwardRef;
   return (
-    <Editor
-      previewStyle="vertical"
-      initialValue="hello react editor world!"
-      height="600px"
-      initialEditType="markdown"
-      useCommandShortcut={true}
-      plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-    />
+    <>
+      <Editor
+        ref={editorRef}
+        previewStyle="vertical"
+        initialValue="hello react editor world!"
+        height="600px"
+        initialEditType="markdown"
+        useCommandShortcut={true}
+        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+      />
+    </>
   );
-}
+});

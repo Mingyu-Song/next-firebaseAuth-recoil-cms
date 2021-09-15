@@ -44,7 +44,7 @@ export default function useFirebaseAuth() {
     setLoading(true);
   };
 
-  const signWithGoogle = () => auth.signInWithRedirect(googleAuthProvider);
+  const signWithGoogle = () => auth.signInWithPopup(googleAuthProvider);
   const signInWithEmailAndPassword = async (email, password) => {
     try {
       const { user } = await firebase
