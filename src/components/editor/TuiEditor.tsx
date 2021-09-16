@@ -14,7 +14,6 @@ import 'prismjs/themes/prism.css';
 import { forwardRef } from 'react';
 
 export default forwardRef(function TuiEditor({ editorRef }) {
-  forwardRef;
   return (
     <>
       <Editor
