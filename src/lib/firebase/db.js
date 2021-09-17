@@ -1,14 +1,15 @@
 import { firestore } from './firebase';
 
-export function getPosts() {
-  firestore
-    .collection('posts')
-    .get()
-    .then((snapshot) => {
-      snapshot.docs.forEach((docs) => {
-        console.log(docs);
-      });
-    });
+export async function getPosts() {
+  try {
+    const ref = firestore.collection('posts');
+    const snapshot = await ref.get();
+    const posts = snapshot.docs.map((doc) => doc.data());
+
+    return posts;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 export async function createUser({ uid, ...other }) {

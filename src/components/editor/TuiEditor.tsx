@@ -11,9 +11,7 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 
-import { forwardRef } from 'react';
-
-export default forwardRef(function TuiEditor({ editorRef }) {
+export default function TuiEditor({ editorRef }) {
   return (
     <>
       <Editor
@@ -27,4 +25,4 @@ export default forwardRef(function TuiEditor({ editorRef }) {
       />
     </>
   );
-});
+}
