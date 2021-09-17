@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import GlobalNav from 'components/nav/GlobalNav';
 import { useCallback, useRef, useState } from 'react';
-import axios from 'axios';
+import { instance } from 'api/axios';
 
 const TuiEditor = dynamic(() => import('components/editor/TuiEditor'), {
   ssr: false,
@@ -22,7 +22,7 @@ export default function Write() {
     console.log(editorInstance);
     const editorToMarkdown = editorInstance?.getMarkdown();
 
-    const result = await axios.post('/api/post/create-post', {
+    const result = await instance.post('/api/post/create-post', {
       postTitle,
       postContent: editorToMarkdown,
     });

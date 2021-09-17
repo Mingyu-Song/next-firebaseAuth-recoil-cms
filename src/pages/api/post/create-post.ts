@@ -9,15 +9,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       headers: { authorization: authToken },
       body,
     } = req;
-    console.log(authToken);
+    console.log({ authToken });
+
     if (!authToken) return res.status(401);
 
-    const { uid, displayName } = await authAdmin.verifyIdToken(authToken);
+    const { uid, name, ...params } = await authAdmin.verifyIdToken(authToken);
 
-    const data = await createPost({ uid, displayName, ...body });
+    const data = await createPost({ uid, name, ...body });
 
-    // res.status(201).json({ message: 'created_post' });
-    res.status(201).end();
+    res.status(201).json({ message: 'created_post' });
   } catch (error) {
     res.status(500).json({ error });
   }

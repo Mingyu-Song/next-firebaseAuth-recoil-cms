@@ -17,26 +17,34 @@ export async function getOrder(uid) {
   }
 }
 
-export async function createPost(props) {
-  console.log(props);
-  // { uid, displayName, ...params }
-  // try {
-  //   const postId = `${displayName}_${postContent}`;
-  //   console.log({ postId });
-  //   const ref = firestoreAdmin.collection('posts').doc(postId);
-  //   console.log({ ref });
-  //   await ref.set({
-  //     uid,
-  //     author: displayName,
-  //     ...params,
-  //     createdAt: serverTimestamp(),
-  //   });
+export async function createPost({
+  uid,
+  name,
+  postContent,
+  postTitle,
+  ...params
+}) {
+  try {
+    // const postId = `${displayName}_${postContent}`;
+    const postId = `${postContent}`;
+    console.log({ postId });
+    const ref = firestoreAdmin.collection('posts').doc(postId);
+    const value = {
+      uid,
+      author: name,
+      postContent,
+      postTitle,
+      // ...params,
+      createdAt: serverTimestamp(),
+    };
+    console.log(value);
+    await ref.set({ ...value });
 
-  //   return postId;
-  // } catch (error) {
-  //   console.log(error);
-  //   throw new Error(error);
-  // }
+    return postId;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 }
 
 // export async function getOrder(merchant_uid) {

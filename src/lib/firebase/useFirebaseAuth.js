@@ -44,7 +44,14 @@ export default function useFirebaseAuth() {
     setLoading(true);
   };
 
-  const signWithGoogle = () => auth.signInWithPopup(googleAuthProvider);
+  const signWithGoogle = async () => {
+    try {
+      const { user } = await auth.signInWithPopup(googleAuthProvider);
+      await authStateChanged(user);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const signInWithEmailAndPassword = async (email, password) => {
     try {
       const { user } = await firebase

@@ -9,9 +9,12 @@ export default function Home() {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
 
-  useEffect(async () => {
-    const result = await getPosts();
-    setPosts(result);
+  useEffect(() => {
+    const getAllPosts = async () => {
+      const result = await getPosts();
+      console.log(result);
+    };
+    getAllPosts();
   }, []);
 
   return (
