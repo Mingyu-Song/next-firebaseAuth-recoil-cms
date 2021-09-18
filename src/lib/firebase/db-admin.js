@@ -20,13 +20,14 @@ export async function getOrder(uid) {
 export async function createPost({
   uid,
   name,
+  createdAt,
   postContent,
   postTitle,
   ...params
 }) {
   try {
     // const postId = `${displayName}_${postContent}`;
-    const postId = `${postContent}`;
+    const postId = `${name}_${postContent}`;
     console.log({ postId });
     const ref = firestoreAdmin.collection('posts').doc(postId);
     const value = {
@@ -35,7 +36,7 @@ export async function createPost({
       postContent,
       postTitle,
       // ...params,
-      createdAt: serverTimestamp(),
+      createdAt,
     };
     console.log(value);
     await ref.set({ ...value });

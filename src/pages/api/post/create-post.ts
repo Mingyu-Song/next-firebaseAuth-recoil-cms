@@ -15,9 +15,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const { uid, name, ...params } = await authAdmin.verifyIdToken(authToken);
 
-    const data = await createPost({ uid, name, ...body });
+    //서버기준 생성일
+    const createdAt = new Date().toString();
 
-    res.status(201).json({ message: 'created_post' });
+    const data = await createPost({ uid, name, createdAt, ...body });
+
+    res.status(201).json({ message: 'created post' });
   } catch (error) {
     res.status(500).json({ error });
   }

@@ -1,4 +1,5 @@
 import GlobalNav from 'components/nav/GlobalNav';
+import PostCardList from 'components/post/PostCardList';
 import { useAuth } from 'context/AuthUserContext';
 import { getPosts } from 'lib/firebase/db';
 import { useRouter } from 'next/router';
@@ -12,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const getAllPosts = async () => {
       const result = await getPosts();
-      console.log(result);
+      setPosts(result);
     };
     getAllPosts();
   }, []);
@@ -23,17 +24,7 @@ export default function Home() {
       <br />
       <br />
       <h2>posts</h2>
-      {posts.map((post) => {
-        const { author, createdAt, postContent, postTitle } = post;
-        return (
-          <>
-            <h5>{postTitle}</h5>
-            <span>{createdAt}</span>
-            <span>{author}</span>
-            <p>{postContent}</p>
-          </>
-        );
-      })}
+      <PostCardList posts={posts} />
       <h2>user</h2>
       {JSON.stringify({ ...authUser, token: 'private' })}
       <h5>추가할 것</h5>
