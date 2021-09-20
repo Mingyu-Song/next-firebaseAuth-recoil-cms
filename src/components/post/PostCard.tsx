@@ -13,11 +13,11 @@ export default function PostCard({
   return (
     <Box boxShadow={`2px 3px 4px ${colors.black}`} p={3}>
       <h5>{postTitle}</h5>
+      <span>{author}</span>
+      <p>{postContent}</p>
       <span>
         {typeof createdAt === 'object' ? createdAt.seconds : createdAt}
       </span>
-      <span>{author}</span>
-      <p>{postContent}</p>
     </Box>
   );
 }
