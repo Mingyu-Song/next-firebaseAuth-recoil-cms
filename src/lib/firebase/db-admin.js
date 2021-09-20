@@ -23,25 +23,22 @@ export async function createPost({
   createdAt,
   postContent,
   postTitle,
-  ...params
+  urlSlug,
 }) {
   try {
-    // const postId = `${displayName}_${postContent}`;
-    const postId = `${name}_${postContent}`;
-    console.log({ postId });
-    const ref = firestoreAdmin.collection('posts').doc(postId);
+    const ref = firestoreAdmin.collection('posts').doc();
     const value = {
       uid,
       author: name,
       postContent,
       postTitle,
-      // ...params,
       createdAt,
+      urlSlug,
     };
-    console.log(value);
-    await ref.set({ ...value });
 
-    return postId;
+    await ref.set(value);
+
+    return;
   } catch (error) {
     console.log(error);
     throw new Error(error);

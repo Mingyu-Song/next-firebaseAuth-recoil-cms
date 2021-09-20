@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { authAdmin } from 'lib/firebase/firebase-admin';
 import { createPost } from 'lib/firebase/db-admin';
+import titleToUrlSlug from 'lib/utils/titleToUrlSlug';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -14,11 +15,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if (!authToken) return res.status(401);
 
     const { uid, name, ...params } = await authAdmin.verifyIdToken(authToken);
+    const { postTitle } = body;
 
     //서버기준 생성일
     const createdAt = new Date().toString();
+    const urlSlug = titleToUrlSlug(postTitle);
 
-    const data = await createPost({ uid, name, createdAt, ...body });
+    await createPost({ ...body, uid, name, createdAt, urlSlug });
 
     res.status(201).json({ message: 'created post' });
   } catch (error) {

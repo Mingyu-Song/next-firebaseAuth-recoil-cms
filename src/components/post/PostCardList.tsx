@@ -6,9 +6,9 @@ export default function PostCardList({ posts }) {
   return (
     <ul>
       {posts.map((post) => {
-        const { postId, author } = post;
+        const { urlSlug, author } = post;
         return (
-          <li onClick={() => router.push(`/post/@${author}/${postId}`)}>
+          <li onClick={() => router.push(`/@${author}/${urlSlug}`)}>
             <PostCard {...post} />
           </li>
         );
