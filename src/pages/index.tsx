@@ -16,19 +16,13 @@ export default function Home() {
       const result = await getPosts();
       setPosts(result);
     };
-    const getAllComments = async (postId) => {
-      const result = await getComments(postId);
-      setComments(result);
-    };
-    getAllComments('e7CQdNL0twLSnGMZx1sA');
+
     getAllPosts();
   }, []);
   console.log(comments);
   return (
     <>
       <GlobalNav />
-      <br />
-      <br />
       <h2>posts</h2>
       <PostCardList posts={posts} />
       <h2>user</h2>

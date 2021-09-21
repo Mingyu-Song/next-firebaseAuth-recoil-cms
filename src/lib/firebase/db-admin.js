@@ -1,21 +1,4 @@
-import { firestoreAdmin, serverTimestamp } from './firebase-admin';
-
-export async function getOrder(uid) {
-  try {
-    const ref = firestoreAdmin.collection('order');
-    const query = ref.where('orderer', '==', uid);
-    const snapshot = await query.get();
-    console.log(snapshot);
-    const messages = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    return { messages };
-  } catch (error) {
-    return { error };
-  }
-}
+import { firestoreAdmin } from './firebase-admin';
 
 export async function createPost({
   uid,
@@ -26,8 +9,8 @@ export async function createPost({
   urlSlug,
 }) {
   try {
-    const ref = firestoreAdmin.collection('posts').doc();
-    const value = {
+    const postRef = firestoreAdmin.collection('posts').doc();
+    const postBody = {
       uid,
       author: name,
       postContent,
@@ -36,26 +19,44 @@ export async function createPost({
       urlSlug,
     };
 
-    await ref.set(value);
-
-    return;
+    await postRef.set(postBody);
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 }
 
-// export async function getOrder(merchant_uid) {
-//   try {
-//     const ref = firestoreAdmin.collection("order").doc(merchant_uid);
-//     const snapshot = await ref.get();
-//     const payment = { id: snapshot.id, ...snapshot.data() };
+export async function createComment({
+  uid,
+  name,
+  postId,
+  commentContent,
+  createdAt,
+  parentCommentId,
+}) {
+  try {
+    let commentRef = firestoreAdmin
+      .collection('posts')
+      .doc(postId)
+      .collection('comments');
+    if (parentCommentId) {
+      commentRef.doc(parentCommentId).collection('childComments').doc();
+    } else {
+      commentRef.doc();
+    }
 
-//     return { ...payment };
-//   } catch (error) {
-//     return { error };
-//   }
-// }
+    const commentBody = {
+      uid,
+      author: name,
+      postId,
+      commentContent,
+      createdAt,
+    };
+
+    await commentRef.set(commentBody);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
 export async function updateOrder(merchant_uid, value) {
   try {

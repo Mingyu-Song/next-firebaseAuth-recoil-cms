@@ -19,14 +19,12 @@ export default function Write() {
 
   const submit = async () => {
     const editorInstance = editorRef.current?.getInstance();
-    console.log(editorInstance);
     const editorToMarkdown = editorInstance?.getMarkdown();
 
     const result = await instance.post('/api/post/create-post', {
       postTitle,
       postContent: editorToMarkdown,
     });
-    console.log(result);
   };
 
   return (

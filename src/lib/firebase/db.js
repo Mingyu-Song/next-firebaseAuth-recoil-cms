@@ -37,7 +37,9 @@ export async function getComments(postId) {
       .doc(postId)
       .collection('comments');
     const commentsSnapshot = await commentsRef.get();
-    const comments = commentsSnapshot.docs.map((doc) => doc.data());
+    const comments = commentsSnapshot.docs.map((doc) => {
+      return { commentId: doc.id, ...doc.data() };
+    });
 
     return comments;
   } catch (error) {
