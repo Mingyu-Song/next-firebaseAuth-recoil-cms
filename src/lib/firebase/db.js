@@ -37,14 +37,26 @@ export async function getComments(postId) {
       .doc(postId)
       .collection('comments');
     const commentsSnapshot = await commentsRef.get();
-    const comments = commentsSnapshot.docs.map((doc) => {
-      return { commentId: doc.id, ...doc.data() };
+    const comments = commentsSnapshot.docs.map(async (doc) => {
+      const childCommentsRef = commentsRef
+        .doc(doc.id)
+        .collection('childComments');
+      const childComments = await getChildComments(childCommentsRef);
+      return { commentId: doc.id, ...doc.data(), childComments };
     });
 
-    return comments;
+    return Promise.all(comments);
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export async function getChildComments(childCommentsRef) {
+  const childCommentsSnapshot = await childCommentsRef.get();
+  const childComments = childCommentsSnapshot.docs.map((doc) => {
+    return { commentId: doc.id, ...doc.data() };
+  });
+  return childComments;
 }
 
 export async function createUser({ uid, ...other }) {

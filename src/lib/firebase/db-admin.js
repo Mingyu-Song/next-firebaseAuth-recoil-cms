@@ -25,7 +25,7 @@ export async function createPost({
   }
 }
 
-export async function createComment({
+export async function createChildComment({
   uid,
   name,
   postId,
@@ -34,15 +34,40 @@ export async function createComment({
   parentCommentId,
 }) {
   try {
-    let commentRef = firestoreAdmin
+    const childCommentRef = firestoreAdmin
       .collection('posts')
       .doc(postId)
-      .collection('comments');
-    if (parentCommentId) {
-      commentRef.doc(parentCommentId).collection('childComments').doc();
-    } else {
-      commentRef.doc();
-    }
+      .collection('comments')
+      .doc(parentCommentId)
+      .collection('childComments')
+      .doc();
+
+    const childCommentBody = {
+      uid,
+      author: name,
+      commentContent,
+      createdAt,
+    };
+
+    await childCommentRef.set(childCommentBody);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function createComment({
+  uid,
+  name,
+  postId,
+  commentContent,
+  createdAt,
+}) {
+  try {
+    const commentRef = firestoreAdmin
+      .collection('posts')
+      .doc(postId)
+      .collection('comments')
+      .doc();
 
     const commentBody = {
       uid,
