@@ -4,14 +4,21 @@ import zIndexes from 'lib/styles/zIndexes';
 import React from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
+import { colors } from 'lib/styles/theme';
 
 export const Modals = {
   modalLogin: dynamic(() => import('./ModalLogin')),
   modalExample: dynamic(() => import('./ModalExample')),
 };
 
-export default function ModalRoot({ onClose }) {
-  const { Component, visible, ...restProps } = useModalValue();
+export default function ModalRoot() {
+  const { Component, visible, onClose, ...restProps } = useModalValue();
+  const { close } = useModalActions();
+
+  const handleClose = () => {
+    onClose();
+    close();
+  };
 
   if (!visible) return null;
   return (
@@ -19,7 +26,7 @@ export default function ModalRoot({ onClose }) {
       <ModalRootBox>
         <Background />
         <ModalWrapper>
-          <Component {...restProps} />
+          <Component {...restProps} handleClose={handleClose} />
         </ModalWrapper>
       </ModalRootBox>
     </RootPortal>
@@ -50,7 +57,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   opacity: 0.7;
-  background-color: ${({ theme }) => theme.colors.grey._50};
+  background-color: ${colors.grey._50};
   filter: blur(10px);
 `;
 const ModalWrapper = styled.div`

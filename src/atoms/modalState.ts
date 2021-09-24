@@ -9,7 +9,7 @@ const defaultModalState = {
   confirmText: 'OK',
   cancelText: 'CANCEL',
   onConfirm() {},
-  onClose: undefined,
+  onClose: null,
   props: {},
 };
 

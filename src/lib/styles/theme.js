@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   grey: {
     _50: '#FAFAFA',
     _100: '#F5F5F5',
