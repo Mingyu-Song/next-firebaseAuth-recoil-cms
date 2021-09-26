@@ -16,8 +16,9 @@ export const colors = {
   blue: '#007ce0',
   navy: '#004175',
 };
-const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72];
-const fontWeights = [100, 300, 400, 500, 700];
+
+export const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72];
+export const fontWeights = [100, 300, 400, 500, 700];
 
 export const mediaSizes = {
   xsmall: 375,
@@ -29,9 +30,11 @@ export const mediaSizes = {
   xxxlarge: 2200,
 };
 
-const breakpoints = Object.values(mediaSizes).map((size) => {
+export const breakpoints = Object.values(mediaSizes).map((size) => {
   return size + 'px';
 });
+
+export const radii = [2, 4, 8, 16, 32];
 
 const theme = {
   colors,
@@ -39,8 +42,8 @@ const theme = {
   breakpoints,
   fontSizes,
   fontWeights,
-  // sizes: breakpoints,
-  radii: [2, 4, 8, 16, 32],
+  sizes: breakpoints,
+  radii,
 };
 
 export default theme;

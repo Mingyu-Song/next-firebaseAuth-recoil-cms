@@ -1,18 +1,32 @@
+import Box from 'components/box/Box';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import PostCard from './PostCard';
 
 export default function PostCardList({ posts }) {
   const router = useRouter();
   return (
-    <ul>
+    <PostCardListBox>
       {posts.map((post) => {
         const { urlSlug, author } = post;
         return (
-          <li onClick={() => router.push(`/@${author}/${urlSlug}`)}>
+          <PostCardListItem
+            width={[1, 1, 1 / 2, 1 / 3, 1 / 4, 1 / 4]}
+            onClick={() => router.push(`/@${author}/${urlSlug}`)}
+          >
             <PostCard {...post} />
-          </li>
+          </PostCardListItem>
         );
       })}
-    </ul>
+    </PostCardListBox>
   );
 }
+
+const PostCardListBox = styled(Box)`
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  justify-content: flex-start;
+`;
+
+const PostCardListItem = styled(Box)``;

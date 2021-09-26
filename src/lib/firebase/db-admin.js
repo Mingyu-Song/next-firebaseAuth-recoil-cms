@@ -2,7 +2,6 @@ import { firestoreAdmin } from './firebase-admin';
 
 export async function createPost({
   uid,
-  name,
   createdAt,
   postContent,
   postTitle,
@@ -10,9 +9,9 @@ export async function createPost({
 }) {
   try {
     const postRef = firestoreAdmin.collection('posts').doc();
+    const userRef = firestoreAdmin.collection('users').doc(uid);
     const postBody = {
-      uid,
-      author: name,
+      userRef,
       postContent,
       postTitle,
       createdAt,

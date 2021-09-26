@@ -1,4 +1,4 @@
-import { useModalValue } from 'atoms/modalState';
+import { useModalActions, useModalValue } from 'atoms/modalState';
 import RootPortal from 'components/portal';
 import zIndexes from 'lib/styles/zIndexes';
 import React from 'react';

@@ -22,9 +22,16 @@ export async function getPosts() {
   try {
     const postsCol = firestore.collection('posts');
     const postsSnapshot = await postsCol.get();
-    const posts = postsSnapshot.docs.map((doc) => doc.data());
+    const posts = postsSnapshot.docs.map(async (doc) => {
+      const { userRef, ...exceptUserRefData } = doc.data();
+      const userSnapshot = await userRef.get();
+      const user = userSnapshot.data();
 
-    return posts;
+      return { ...exceptUserRefData, ...user };
+    });
+
+    console.log(Promise.all(posts));
+    return Promise.all(posts);
   } catch (error) {
     throw new Error(error);
   }

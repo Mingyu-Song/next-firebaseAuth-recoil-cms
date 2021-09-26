@@ -1,9 +1,11 @@
+import Box from 'components/box/Box';
 import GlobalNav from 'components/nav/GlobalNav';
 import PostCardList from 'components/post/PostCardList';
 import { useAuth } from 'context/AuthUserContext';
 import { getComments, getPosts } from 'lib/firebase/db';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 export default function Home() {
   const { authUser } = useAuth();
@@ -19,14 +21,13 @@ export default function Home() {
 
     getAllPosts();
   }, []);
-  console.log(comments);
   return (
     <>
       <GlobalNav />
-      <h2>posts</h2>
-      <PostCardList posts={posts} />
+      <PostCardListBox as="main" width={['100%', '100%', 1, 2, 3, 3]} mx="auto">
+        <PostCardList posts={posts} />
+      </PostCardListBox>
       <h2>user</h2>
-      {JSON.stringify({ ...authUser, token: 'private' })}
       <h5>추가할 것</h5>
       <ul>
         <li>post list page</li>
@@ -37,3 +38,5 @@ export default function Home() {
     </>
   );
 }
+
+const PostCardListBox = styled(Box)``;
