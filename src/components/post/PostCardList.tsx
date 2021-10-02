@@ -8,11 +8,11 @@ export default function PostCardList({ posts }) {
   return (
     <PostCardListBox>
       {posts.map((post) => {
-        const { urlSlug, author } = post;
+        const { urlSlug, displayId } = post;
         return (
           <PostCardListItem
             width={[1, 1, 1 / 2, 1 / 3, 1 / 4, 1 / 4]}
-            onClick={() => router.push(`/@${author}/${urlSlug}`)}
+            onClick={() => router.push(`/@${displayId}/${urlSlug}`)}
           >
             <PostCard {...post} />
           </PostCardListItem>

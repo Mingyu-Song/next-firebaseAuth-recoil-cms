@@ -1,13 +1,14 @@
 import Box from 'components/box/Box';
-import { H6 } from 'components/text/Text';
+import Text, { H6 } from 'components/text/Text';
 import { colors } from 'lib/styles/theme';
 import styled from 'styled-components';
 
 export default function PostCard({
-  author,
   createdAt,
   postTitle,
   postContent,
+  displayName,
+  photoURL,
   ...props
 }) {
   return (
@@ -18,21 +19,17 @@ export default function PostCard({
       <div className="dash" />
       <div className="info-wrapper">
         <H6>{postTitle}</H6>
-        <span>{author}</span>
-        {/* <p>{postContent}</p> */}
-        <span>
-          {typeof createdAt === 'object' ? createdAt.seconds : createdAt}
-        </span>
+        <div className="user">
+          <img src={photoURL} />
+          <Text as="span">{displayName}</Text>
+        </div>
+        <span>{new Date(createdAt).getDate()}</span>
       </div>
     </PostCardBox>
   );
 }
 const PostCardBox = styled(Box)`
   cursor: pointer;
-  &:hover img {
-    transform: scale(110%);
-    transition: transform 0.2s ease-in-out;
-  }
   .image-wrapper {
     position: relative;
     overflow: hidden;
@@ -40,6 +37,10 @@ const PostCardBox = styled(Box)`
     border-radius: 16px;
     box-shadow: 0 50px 100px -30px ${colors.grey._300},
       0 30px 31px -25px ${colors.grey._500};
+    &:hover img {
+      transform: scale(110%);
+      transition: transform 0.2s ease-in-out;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -50,14 +51,23 @@ const PostCardBox = styled(Box)`
     }
   }
   .dash {
-    margin: 32px 8px 16px;
+    margin: 32px 8px 8px;
     height: 1px;
-    width: 40px;
+    width: 60px;
     background-color: ${colors.black};
   }
   .info-wrapper {
     position: relative;
     padding: 8px;
     margin-top: 16px;
+    .user {
+      display: flex;
+      align-items: center;
+      img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+    }
   }
 `;

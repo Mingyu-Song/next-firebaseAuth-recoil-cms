@@ -1,4 +1,5 @@
 import { instance } from 'api/axios';
+import GlobalNav from 'components/nav/GlobalNav';
 import { getPost, getComments } from 'lib/firebase/db';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
@@ -28,7 +29,8 @@ export default function Post({ postProps, commentsProps }) {
   }, []);
 
   return (
-    <div>
+    <>
+      <GlobalNav />
       <div>{author}</div>
       <div>{postTitle}</div>
       <div>
@@ -46,7 +48,7 @@ export default function Post({ postProps, commentsProps }) {
       {comments.map((comment) => (
         <Comment postId={postId} comment={comment} />
       ))}
-    </div>
+    </>
   );
 }
 
@@ -85,10 +87,10 @@ function Comment({ postId, comment }) {
 }
 
 export async function getServerSideProps({ query }) {
-  const { author, postUrlSlug } = query;
-  const removedAtSignAuthor = author.slice(1);
-
-  const postProps = await getPost(removedAtSignAuthor, postUrlSlug);
+  const { displayId, postUrlSlug } = query;
+  const removedAtSignFromDisplayId = displayId.slice(1);
+  console.log(displayId, postUrlSlug);
+  const postProps = await getPost(removedAtSignFromDisplayId, postUrlSlug);
   // const commentsProps = await getComments(postProps.postId);
 
   return {

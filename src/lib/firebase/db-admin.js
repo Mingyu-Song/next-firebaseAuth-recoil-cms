@@ -1,3 +1,4 @@
+import { getUser } from './db';
 import { firestoreAdmin } from './firebase-admin';
 
 export async function createPost({
@@ -9,9 +10,11 @@ export async function createPost({
 }) {
   try {
     const postRef = firestoreAdmin.collection('posts').doc();
-    const userRef = firestoreAdmin.collection('users').doc(uid);
+    const { displayId } = await getUser(uid);
+
     const postBody = {
-      userRef,
+      uid,
+      displayId,
       postContent,
       postTitle,
       createdAt,
